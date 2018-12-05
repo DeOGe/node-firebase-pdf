@@ -1,0 +1,45 @@
+{
+    "fbUrl": "https://nicomultipay.firebaseio.com",
+    "apiKey": "PC4G7kY1XxaauFAOV80eNjm6gBS1aL9rsy6eDwlf",
+    "esHost": "localhost:9200",
+    "mail": {
+      "host" : "smtp.postmarkapp.com",
+      "port" : 587,
+      "secure" : false,
+      "from": "support@multipay.ph",
+      "name": "Bayad Center - MultiPay",
+      "subject": "[Bayad Center - MultiPay]",
+      "auth": {
+        "user" : "1fd482c5-156a-4334-bf6b-2377130a9de5",
+        "pass" : "1fd482c5-156a-4334-bf6b-2377130a9de5"
+      }
+    },
+    "sms":{
+      "id": "93653a175b98a9ab79eabc502aa82f2474f1c4ec2d83fab472219805a5393c14",
+      "secret": "004b60d2ee80a2a68a915d020d9c870e543851d11beedce7c91e53b61aff43b7",
+      "code": "2929000008"
+    },
+    "database": {
+      "mysql": {
+        "host": "localhost",
+        "port": "3306",
+        "database": "dfa-appointment",
+        "user": "root",
+        "password": ""
+      }
+    },
+    "s3": {
+      "options": {
+        "maxAsyncS3": 20,
+        "s3RetryCount": 3,
+        "s3RetryDelay": 1000,
+        "multipartUploadThreshold": 20971520,
+        "multipartUploadSize": 15728640,
+        "accessKeyId": "AKIAIWMJOUUQBUQICEBA",
+        "secretAccessKey":"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",
+        "region": "ap-southeast-1",
+        "bucket": "dfa-passport",
+        "cdnUrl": ""
+      }
+    }
+}
