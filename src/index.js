@@ -6,6 +6,7 @@ import CryptoJS from 'crypto-js';
 import collectionSummaryService from './app/templates/pdf/CollectionSummaryService';
 import dailyCollectionAndDepositReportService from './app/templates/pdf/DailyCollectionAndDepositReportService';
 import userCollectionService from './app/templates/pdf/UserCollectionService';
+import listOfBankChecks from './app/templates/pdf/ListOfBankChecks';
 
 class PDF {
     
@@ -24,7 +25,8 @@ class PDF {
         })));
         
         // this.collectionSummaryService();
-        this.dailyCollectionAndDepositReportService();
+        // this.dailyCollectionAndDepositReportService();
+        this.listOfBankChecks();
         // this.userCollectionService();
     } 
 
@@ -44,6 +46,32 @@ class PDF {
     generatePaymentCollectionPdf = (filename) => {
         const promise = new Promise(() => {
             collectionSummaryService.process(
+                filename,
+                /* () => {
+                    // this.uploadS3Link(filename);
+                    resolve();
+                }, */
+            );
+        });
+        return promise;
+    }
+
+    listOfBankChecks = () => {
+        const filename = 'ListOfBankChecks'/*CryptoJS.MD5(moment().format('YYYYMMDD hhmmss')).toString() */;
+        const pdf = this.generateListOfBankChecksPdf(
+            filename,
+        );
+        pdf.then((res) => {
+            resolve(res);
+        })
+        .catch((err) => {
+            reject(err);
+        });
+    }
+
+    generateListOfBankChecksPdf = (filename) => {
+        const promise = new Promise(() => {
+            listOfBankChecks.process(
                 filename,
                 /* () => {
                     // this.uploadS3Link(filename);
