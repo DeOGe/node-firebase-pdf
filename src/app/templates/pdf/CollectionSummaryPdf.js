@@ -4,25 +4,21 @@ import PDFKit from 'pdfkit';
 // import codes from 'rescode';
 import {amountFormat, toInt} from './Helpers/Number';
 
-class CollectionSummaryService {
-    process(filename/* , callback */) {
-        const processor = this;
-        const onProcess = processor.generatePDF(filename);
-        // onProcess.then(() => {
-        //     callback();
-        // });
+class CollectionSummaryPdf {
+    process(filename, payload) {
+        const onProcess = this.generatePDF(filename, payload);
     }
 
-    generatePDF(filename) {
+    generatePDF(filename, payload) {
         return new Promise((resolve) => {
             const doc = new PDFKit();
             doc.pipe(Fs.createWriteStream(`src/resources/pdf/${filename}.pdf`));
             doc.registerFont('Thin', 'src/app/templates/pdf/assets/fonts/TimesNewRomans.ttf');
             doc.registerFont('Bold', 'src/app/templates/pdf/assets/fonts/TimesNewRomansBold.ttf');
 
-            const data = this.buildData();
+            const data = this.buildData(payload);
 
-            this.pageOne(doc, data).then(() => {
+            this.generateContent(doc, data).then(() => {
                 doc.end()
                 console.log('PDF GENERATED.');
                 resolve();
@@ -30,19 +26,10 @@ class CollectionSummaryService {
         });
     }
 
-    pageOne = (doc, data) => new Promise((resolve) => {
+    generateContent = (doc, data) => new Promise((resolve) => {
         let posY = doc.y;
         doc.font('Courier')
         doc.fontSize(12);
-        // doc.text('0', 0, 0, {
-        //     align: 'left',
-        //     width: 550,
-        // });
-
-        // doc.text('612', 0, 0, {
-        //     align: 'right',
-        //     width: 612,
-        // });
 
         doc.text('P a y m e n t   C o l l e c t i o n   S e r v i c e', 30, 30, {
             align: 'center',
@@ -330,13 +317,13 @@ class CollectionSummaryService {
         resolve();
     });
 
-    buildData = () => ({
-        tpa_code: '0000',
-        tpa_name: 'JEROMEDELEON',
-        run_by: 'jedeleon',
-        deposit: '50000',
-        run_on: 'September 14,2018 10:36:34 AM',
-        report_for: 'July 26,2018',
+    buildData = (data) => ({
+        tpa_code: data.tpa_code,
+        tpa_name: data.tpa_name,
+        run_by: data.run_by,
+        deposit: data.deposit,
+        run_on: data.run_on,
+        report_for: data.report_for,
         total: {
             all: {
                 count: 160,
@@ -545,10 +532,6 @@ class CollectionSummaryService {
             }
         ]
     })
-
-    
 }
 
-
-
-export default new CollectionSummaryService();
+export default new CollectionSummaryPdf();

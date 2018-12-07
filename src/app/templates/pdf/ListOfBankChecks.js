@@ -2,7 +2,7 @@ import Fs from 'fs';
 import PDFKit from 'pdfkit';
 import { amountFormat, toInt } from './Helpers/Number';
 
-class DailyCollectionAndDepositReportService {
+class ListOfBankChecks {
 
     process(filename) {
         const processor = this;
@@ -20,7 +20,7 @@ class DailyCollectionAndDepositReportService {
 
             this.pageOne(doc, data).then(() => {
                 doc.end()
-                console.log('BANK CHECKS         GENERATED.');
+                console.log('BANK CHECKS GENERATED.');
                 resolve();
             });
         });
